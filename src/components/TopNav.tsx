@@ -25,6 +25,9 @@ export function TopNav({ role }: TopNavProps) {
         <Link href="/dashboard" className="btn">
           Dashboard
         </Link>
+        <Link href="/profile" className="btn">
+          Profile
+        </Link>
         {role === "admin" ? (
           <Link href="/admin" className="btn">
             Admin CMS

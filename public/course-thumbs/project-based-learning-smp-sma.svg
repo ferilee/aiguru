@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#5b1f1f"/>
+      <stop offset="100%" stop-color="#7a3a18"/>
+    </linearGradient>
+  </defs>
+  <rect width="1280" height="720" fill="url(#bg)"/>
+  <rect x="160" y="140" width="960" height="440" rx="26" fill="#ffffff14" stroke="#ffffff30"/>
+  <polygon points="280,430 420,260 560,430" fill="#22c55e"/>
+  <polygon points="460,430 610,220 760,430" fill="#f59e0b"/>
+  <polygon points="660,430 820,290 980,430" fill="#ef4444"/>
+  <rect x="250" y="470" width="770" height="20" rx="10" fill="#ffffff92"/>
+  <text x="250" y="530" fill="#ffffff" font-size="42" font-family="Arial, sans-serif" font-weight="700">Project Based Learning untuk SMP/SMA</text>
+</svg>

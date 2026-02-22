@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#32193b"/>
+      <stop offset="100%" stop-color="#0f2f57"/>
+    </linearGradient>
+  </defs>
+  <rect width="1280" height="720" fill="url(#bg)"/>
+  <rect x="170" y="150" width="940" height="420" rx="24" fill="#ffffff12" stroke="#ffffff30"/>
+  <circle cx="370" cy="360" r="120" fill="#ffffff1f"/>
+  <circle cx="370" cy="360" r="70" fill="#7dd3fc"/>
+  <rect x="560" y="250" width="430" height="24" rx="12" fill="#ffffffbf"/>
+  <rect x="560" y="292" width="360" height="16" rx="8" fill="#ffffff8f"/>
+  <rect x="560" y="322" width="390" height="16" rx="8" fill="#ffffff8f"/>
+  <rect x="560" y="352" width="330" height="16" rx="8" fill="#ffffff8f"/>
+  <rect x="560" y="396" width="180" height="56" rx="10" fill="#38bdf8"/>
+  <text x="240" y="520" fill="#ffffff" font-size="42" font-family="Arial, sans-serif" font-weight="700">Asesmen Formatif Berbasis AI</text>
+</svg>

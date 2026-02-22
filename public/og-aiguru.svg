@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#07133a"/>
+      <stop offset="60%" stop-color="#0b2d75"/>
+      <stop offset="100%" stop-color="#0d1f56"/>
+    </linearGradient>
+    <linearGradient id="chip" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#2ea8f0"/>
+      <stop offset="100%" stop-color="#1a56df"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" rx="0" fill="url(#bg)"/>
+  <circle cx="108" cy="88" r="160" fill="#6be2ff33"/>
+  <circle cx="1120" cy="550" r="210" fill="#3f7cff26"/>
+  <circle cx="960" cy="96" r="130" fill="#6be2ff22"/>
+
+  <rect x="70" y="66" width="1060" height="500" rx="26" fill="#ffffff10" stroke="#ffffff2a"/>
+
+  <rect x="120" y="124" width="176" height="176" rx="24" fill="#020612"/>
+  <text x="148" y="245" font-family="Arial, sans-serif" font-weight="900" font-size="104" fill="#d81414">AI</text>
+
+  <text x="328" y="188" font-family="Arial, sans-serif" font-weight="800" font-size="68" fill="#ffffff">AIGURU</text>
+  <text x="328" y="242" font-family="Arial, sans-serif" font-size="34" fill="#d8e7ff">LMS Pelatihan Guru Berbasis Proyek</text>
+
+  <g>
+    <rect x="328" y="292" width="238" height="60" rx="30" fill="url(#chip)"/>
+    <text x="376" y="330" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#ffffff">Mulai Belajar</text>
+  </g>
+
+  <g fill="#ffffffd9" font-family="Arial, sans-serif" font-size="30">
+    <text x="328" y="420">- Course interaktif untuk guru</text>
+    <text x="328" y="468">- Tracking progres dan sertifikat</text>
+    <text x="328" y="516">- Dukungan proyek pembelajaran digital</text>
+  </g>
+</svg>

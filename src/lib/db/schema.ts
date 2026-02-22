@@ -11,6 +11,7 @@ export const users = sqliteTable("users", {
   id: integer("id").primaryKey({ autoIncrement: true }),
   name: text("name").notNull(),
   email: text("email").notNull(),
+  avatarUrl: text("avatar_url").notNull().default(""),
   passwordHash: text("password_hash").notNull().default(""),
   authProvider: text("auth_provider", { enum: ["local", "google"] })
     .notNull()

@@ -11,6 +11,59 @@ import {
   users,
 } from "../src/lib/db/schema";
 
+const courseSeeds = [
+  {
+    title: "Membuat LKPD Interaktif",
+    slug: "lkpd-interaktif",
+    description:
+      "Pelatihan merancang LKPD interaktif berbasis website sederhana untuk pembelajaran aktif.",
+    thumbnailUrl: "/course-thumbs/lkpd-interaktif.svg",
+    previewVideoUrl: "/placeholders/preview.mp4",
+    price: 0,
+    status: "published" as const,
+  },
+  {
+    title: "Canva untuk Media Ajar Kreatif",
+    slug: "canva-media-ajar-kreatif",
+    description:
+      "Belajar membuat materi visual pembelajaran yang menarik dengan alur desain praktis.",
+    thumbnailUrl: "/course-thumbs/canva-media-ajar-kreatif.svg",
+    previewVideoUrl: "/placeholders/preview.mp4",
+    price: 0,
+    status: "published" as const,
+  },
+  {
+    title: "Google Classroom dari Nol",
+    slug: "google-classroom-dari-nol",
+    description:
+      "Panduan langkah demi langkah mengelola kelas digital, tugas, dan penilaian.",
+    thumbnailUrl: "/course-thumbs/google-classroom-dari-nol.svg",
+    previewVideoUrl: "/placeholders/preview.mp4",
+    price: 0,
+    status: "published" as const,
+  },
+  {
+    title: "Asesmen Formatif Berbasis AI",
+    slug: "asesmen-formatif-berbasis-ai",
+    description:
+      "Rancang asesmen cepat dengan bantuan AI untuk memetakan pemahaman siswa.",
+    thumbnailUrl: "/course-thumbs/asesmen-formatif-berbasis-ai.svg",
+    previewVideoUrl: "/placeholders/preview.mp4",
+    price: 149000,
+    status: "published" as const,
+  },
+  {
+    title: "Project Based Learning untuk SMP/SMA",
+    slug: "project-based-learning-smp-sma",
+    description:
+      "Strategi implementasi PjBL lengkap dengan contoh rubrik dan rencana aksi kelas.",
+    thumbnailUrl: "/course-thumbs/project-based-learning-smp-sma.svg",
+    previewVideoUrl: "/placeholders/preview.mp4",
+    price: 199000,
+    status: "published" as const,
+  },
+];
+
 async function main(): Promise<void> {
   const adminEmail = process.env.ADMIN_EMAIL ?? "admin@aiguru.local";
   const adminPassword = process.env.ADMIN_PASSWORD ?? "admin12345";
@@ -34,25 +87,45 @@ async function main(): Promise<void> {
       .returning();
   }
 
+  for (const seed of courseSeeds) {
+    const existing = await db
+      .select({ id: courses.id })
+      .from(courses)
+      .where(eq(courses.slug, seed.slug))
+      .limit(1);
+    if (existing.length === 0) {
+      await db.insert(courses).values({
+        title: seed.title,
+        slug: seed.slug,
+        description: seed.description,
+        thumbnailUrl: seed.thumbnailUrl,
+        previewVideoUrl: seed.previewVideoUrl,
+        price: seed.price,
+        status: seed.status,
+        createdBy: admin.id,
+      });
+    } else {
+      await db
+        .update(courses)
+        .set({
+          title: seed.title,
+          description: seed.description,
+          thumbnailUrl: seed.thumbnailUrl,
+          previewVideoUrl: seed.previewVideoUrl,
+          price: seed.price,
+          status: seed.status,
+        })
+        .where(eq(courses.slug, seed.slug));
+    }
+  }
+
   let [course] = await db
     .select()
     .from(courses)
     .where(eq(courses.slug, "lkpd-interaktif"))
     .limit(1);
   if (!course) {
-    [course] = await db
-      .insert(courses)
-      .values({
-        title: "Membuat LKPD Interaktif",
-        slug: "lkpd-interaktif",
-        description:
-          "Pelatihan merancang LKPD interaktif berbasis website sederhana untuk pembelajaran aktif.",
-        thumbnailUrl: "http://localhost:9000/ai-guru/lkpd-thumb.jpg",
-        price: 0,
-        status: "published",
-        createdBy: admin.id,
-      })
-      .returning();
+    throw new Error("Seed course 'lkpd-interaktif' gagal dibuat.");
   }
 
   let [chapter] = await db
@@ -193,6 +266,7 @@ async function main(): Promise<void> {
   }
 
   console.log("Seed completed");
+  console.log(`Total seeded courses target: ${courseSeeds.length}`);
   console.log(`Admin login: ${adminEmail} / ${adminPassword}`);
 }
 

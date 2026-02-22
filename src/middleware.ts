@@ -1,12 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 import { SESSION_COOKIE_NAME, verifySessionToken } from "@/lib/auth";
 
-const participantRoutes = ["/dashboard", "/classroom"];
+const participantRoutes = ["/dashboard", "/classroom", "/profile"];
 const adminRoutes = ["/admin"];
 const guestOnlyRoutes = ["/login", "/register"];
 
 function startsWithAny(pathname: string, routes: string[]): boolean {
-  return routes.some((route) => pathname === route || pathname.startsWith(`${route}/`));
+  return routes.some(
+    (route) => pathname === route || pathname.startsWith(`${route}/`),
+  );
 }
 
 export async function middleware(request: NextRequest): Promise<NextResponse> {
@@ -46,5 +48,5 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
 }
 
 export const config = {
-  matcher: ["/((?!.*\\..*).*)"]
+  matcher: ["/((?!.*\\..*).*)"],
 };

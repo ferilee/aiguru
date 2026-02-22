@@ -1,0 +1,7 @@
+{
+  "/dashboard/page": "/dashboard",
+  "/page": "/",
+  "/login/page": "/login",
+  "/admin/page": "/admin",
+  "/register/page": "/register"
+}

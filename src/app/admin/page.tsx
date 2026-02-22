@@ -8,6 +8,9 @@ type Course = {
   title: string;
   slug: string;
   description: string;
+  thumbnailUrl: string;
+  previewVideoUrl: string;
+  price: number;
   status: "draft" | "published";
 };
 
@@ -115,6 +118,36 @@ export default function AdminPage() {
         ? "Chapter berhasil dibuat."
         : (result?.error ?? "Gagal buat chapter."),
     );
+  }
+
+  async function updateCourse(
+    event: FormEvent<HTMLFormElement>,
+    courseId: number,
+  ): Promise<void> {
+    event.preventDefault();
+    const fd = new FormData(event.currentTarget);
+    const payload = {
+      title: String(fd.get("title") ?? ""),
+      slug: String(fd.get("slug") ?? ""),
+      description: String(fd.get("description") ?? ""),
+      thumbnailUrl: String(fd.get("thumbnailUrl") ?? ""),
+      previewVideoUrl: String(fd.get("previewVideoUrl") ?? ""),
+      price: Number(fd.get("price") ?? 0),
+      status: String(fd.get("status") ?? "draft"),
+    };
+
+    const response = await fetch(`/api/courses/${courseId}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    const result = await response.json().catch(() => null);
+    setMessage(
+      response.ok
+        ? "Course berhasil diperbarui."
+        : (result?.error ?? "Gagal update course."),
+    );
+    if (response.ok) await load();
   }
 
   async function createMaterial(
@@ -331,6 +364,62 @@ export default function AdminPage() {
               <h3>{course.title}</h3>
               <p>{course.description}</p>
               <p>Status: {course.status}</p>
+              <form
+                className="form"
+                onSubmit={(event) => updateCourse(event, course.id)}
+              >
+                <input
+                  className="input"
+                  name="title"
+                  defaultValue={course.title}
+                  placeholder="Judul course"
+                  required
+                />
+                <input
+                  className="input"
+                  name="slug"
+                  defaultValue={course.slug}
+                  placeholder="Slug course"
+                  required
+                />
+                <textarea
+                  className="textarea"
+                  name="description"
+                  defaultValue={course.description}
+                  placeholder="Deskripsi course"
+                  required
+                />
+                <input
+                  className="input"
+                  name="thumbnailUrl"
+                  defaultValue={course.thumbnailUrl}
+                  placeholder="URL/path thumbnail"
+                />
+                <input
+                  className="input"
+                  name="previewVideoUrl"
+                  defaultValue={course.previewVideoUrl}
+                  placeholder="URL/path preview video"
+                />
+                <input
+                  className="input"
+                  name="price"
+                  type="number"
+                  min={0}
+                  defaultValue={course.price}
+                />
+                <select
+                  className="select"
+                  name="status"
+                  defaultValue={course.status}
+                >
+                  <option value="draft">Draft</option>
+                  <option value="published">Published</option>
+                </select>
+                <button className="btn" type="submit">
+                  Update Course
+                </button>
+              </form>
             </article>
           ))}
         </div>

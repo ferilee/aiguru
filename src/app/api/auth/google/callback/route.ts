@@ -42,6 +42,7 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
       redirectUri,
     });
     const googleUser = await fetchGoogleUserInfo(token.access_token);
+    const googleAvatar = googleUser.picture ?? "";
     if (!googleUser.email || !googleUser.sub || !googleUser.email_verified) {
       return redirectWithError(
         request,
@@ -77,6 +78,8 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
           .update(users)
           .set({
             googleId: googleUser.sub,
+            authProvider: "google",
+            avatarUrl: googleAvatar,
           })
           .where(eq(users.id, existingEmailUser.id))
           .returning();
@@ -89,10 +92,21 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
             passwordHash: "",
             authProvider: "google",
             googleId: googleUser.sub,
+            avatarUrl: googleAvatar,
             role: "participant",
           })
           .returning();
       }
+    } else {
+      const [refreshedUser] = await db
+        .update(users)
+        .set({
+          avatarUrl: googleAvatar,
+          name: googleUser.name || user.name,
+        })
+        .where(eq(users.id, user.id))
+        .returning();
+      user = refreshedUser ?? user;
     }
 
     const redirectTo = user.role === "admin" ? "/admin" : "/dashboard";

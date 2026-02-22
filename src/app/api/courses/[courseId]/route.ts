@@ -5,12 +5,18 @@ import { db } from "@/lib/db";
 import { chapters, courses, materials } from "@/lib/db/schema";
 import { jsonError, requireAdmin } from "@/lib/api";
 
+const assetUrlSchema = z.union([
+  z.string().url(),
+  z.string().startsWith("/"),
+  z.literal(""),
+]);
+
 const updateCourseSchema = z.object({
   title: z.string().min(3).optional(),
   slug: z.string().min(3).optional(),
   description: z.string().min(10).optional(),
-  thumbnailUrl: z.string().url().optional(),
-  previewVideoUrl: z.string().url().optional(),
+  thumbnailUrl: assetUrlSchema.optional(),
+  previewVideoUrl: assetUrlSchema.optional(),
   price: z.number().min(0).optional(),
   status: z.enum(["draft", "published"]).optional(),
 });
