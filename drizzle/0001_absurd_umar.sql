@@ -1,0 +1,17 @@
+PRAGMA foreign_keys=OFF;--> statement-breakpoint
+CREATE TABLE `__new_users` (
+	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+	`name` text NOT NULL,
+	`email` text NOT NULL,
+	`password_hash` text DEFAULT '' NOT NULL,
+	`auth_provider` text DEFAULT 'local' NOT NULL,
+	`google_id` text DEFAULT '' NOT NULL,
+	`role` text DEFAULT 'participant' NOT NULL,
+	`created_at` integer NOT NULL
+);
+--> statement-breakpoint
+INSERT INTO `__new_users`("id", "name", "email", "password_hash", "auth_provider", "google_id", "role", "created_at")
+SELECT "id", "name", "email", "password_hash", 'local', '', "role", "created_at" FROM `users`;--> statement-breakpoint
+DROP TABLE `users`;--> statement-breakpoint
+ALTER TABLE `__new_users` RENAME TO `users`;--> statement-breakpoint
+PRAGMA foreign_keys=ON;

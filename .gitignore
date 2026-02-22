@@ -1,0 +1,31 @@
+node_modules
+.next
+.next_backup_*
+dist
+coverage
+*.log
+.env
+.env.local
+.env.*.local
+.env.production
+.env.staging
+.env.development
+.env.test
+sqlite.db
+sqlite.db-journal
+sqlite.db-shm
+sqlite.db-wal
+
+# Secrets / credentials
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+id_rsa
+id_ed25519
+**/secrets/*
+**/credentials/*
+
+# Certificate output / local artifacts
+public/certificates/*
