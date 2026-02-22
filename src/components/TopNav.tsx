@@ -19,7 +19,7 @@ export function TopNav({ role }: TopNavProps) {
   return (
     <header className="container topbar">
       <Link href="/" className="brand">
-        Akademi Inovasi Guru
+        AIGURU
       </Link>
       <nav className="nav">
         <Link href="/dashboard" className="btn">

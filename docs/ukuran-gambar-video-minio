@@ -1,0 +1,12 @@
+Sudah selesai. Placeholder berhasil dibuat:
+
+- `public/placeholders/thumbnail.jpg`
+- `public/placeholders/preview.mp4`
+
+Spesifikasi:
+- `thumbnail.jpg`: 1280x720
+- `preview.mp4`: 6 detik, 1280x720, H.264, siap untuk hover preview
+
+Contoh URL lokal:
+- `http://localhost:3000/placeholders/thumbnail.jpg`
+- `http://localhost:3000/placeholders/preview.mp4

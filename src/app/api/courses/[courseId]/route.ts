@@ -10,6 +10,7 @@ const updateCourseSchema = z.object({
   slug: z.string().min(3).optional(),
   description: z.string().min(10).optional(),
   thumbnailUrl: z.string().url().optional(),
+  previewVideoUrl: z.string().url().optional(),
   price: z.number().min(0).optional(),
   status: z.enum(["draft", "published"]).optional(),
 });

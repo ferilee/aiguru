@@ -42,7 +42,7 @@ export default function RegisterPage() {
     <main className="container" style={{ paddingTop: 40, paddingBottom: 40 }}>
       <div className="card" style={{ maxWidth: 460, margin: "0 auto" }}>
         <h1>Daftar Akun Guru</h1>
-        <p>Buat akun peserta untuk mengakses kelas AI Guru.</p>
+        <p>Buat akun peserta untuk mengakses kelas AIGURU.</p>
         <form className="form" onSubmit={handleSubmit}>
           <input
             className="input"

@@ -1,0 +1,1 @@
+ALTER TABLE `courses` ADD `preview_video_url` text DEFAULT '' NOT NULL;

@@ -10,6 +10,7 @@ const createCourseSchema = z.object({
   slug: z.string().min(3),
   description: z.string().min(10),
   thumbnailUrl: z.string().url().optional().default(""),
+  previewVideoUrl: z.string().url().optional().default(""),
   price: z.number().min(0).default(0),
   status: z.enum(["draft", "published"]).default("draft"),
 });
@@ -30,6 +31,7 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
       title: courses.title,
       description: courses.description,
       thumbnailUrl: courses.thumbnailUrl,
+      previewVideoUrl: courses.previewVideoUrl,
       price: courses.price,
       status: courses.status,
     })

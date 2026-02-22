@@ -15,6 +15,13 @@
       "when": 1771757091559,
       "tag": "0001_absurd_umar",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1771762990388,
+      "tag": "0002_needy_dazzler",
+      "breakpoints": true
     }
   ]
 }

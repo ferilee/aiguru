@@ -74,6 +74,7 @@ export default function AdminPage() {
       slug: String(fd.get("slug") ?? ""),
       description: String(fd.get("description") ?? ""),
       thumbnailUrl: String(fd.get("thumbnailUrl") ?? ""),
+      previewVideoUrl: String(fd.get("previewVideoUrl") ?? ""),
       price: Number(fd.get("price") ?? 0),
       status: String(fd.get("status") ?? "draft"),
     };
@@ -196,6 +197,11 @@ export default function AdminPage() {
               className="input"
               name="thumbnailUrl"
               placeholder="https://minio/thumbnail.jpg"
+            />
+            <input
+              className="input"
+              name="previewVideoUrl"
+              placeholder="https://minio/preview.mp4"
             />
             <input
               className="input"

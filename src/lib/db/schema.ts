@@ -34,6 +34,7 @@ export const courses = sqliteTable("courses", {
   title: text("title").notNull(),
   description: text("description").notNull(),
   thumbnailUrl: text("thumbnail_url").notNull().default(""),
+  previewVideoUrl: text("preview_video_url").notNull().default(""),
   price: real("price").notNull().default(0),
   status: text("status", { enum: ["draft", "published"] })
     .notNull()

@@ -1,20 +1,16 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { Manrope, Space_Grotesk } from "next/font/google";
+import { Bebas_Neue } from "next/font/google";
 import "./globals.css";
 
-const bodyFont = Manrope({
+const logoFont = Bebas_Neue({
+  weight: "400",
   subsets: ["latin"],
-  variable: "--font-body",
-});
-
-const displayFont = Space_Grotesk({
-  subsets: ["latin"],
-  variable: "--font-display",
+  variable: "--font-logo",
 });
 
 export const metadata: Metadata = {
-  title: "Akademi Inovasi Guru",
+  title: "AIGURU",
   description:
     "LMS untuk pelatihan guru berbasis proyek dan inovasi pembelajaran.",
 };
@@ -26,9 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="id">
-      <body className={`${bodyFont.variable} ${displayFont.variable}`}>
-        {children}
-      </body>
+      <body className={logoFont.variable}>{children}</body>
     </html>
   );
 }
