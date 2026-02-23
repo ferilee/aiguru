@@ -9,10 +9,27 @@ const logoFont = Bebas_Neue({
   variable: "--font-logo",
 });
 
-const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3005";
+function resolveAppUrl(rawValue: string | undefined): string {
+  const fallback = "http://localhost:3005";
+  const value = rawValue?.trim();
+  if (!value) return fallback;
+
+  try {
+    return new URL(value).toString();
+  } catch {
+    try {
+      return new URL(`https://${value}`).toString();
+    } catch {
+      return fallback;
+    }
+  }
+}
+
+const appUrl = resolveAppUrl(process.env.NEXT_PUBLIC_APP_URL);
+const metadataBase = new URL(appUrl);
 
 export const metadata: Metadata = {
-  metadataBase: new URL(appUrl),
+  metadataBase,
   title: {
     default: "AIGURU",
     template: "%s | AIGURU",

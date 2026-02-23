@@ -6,11 +6,11 @@ services:
     ports:
       - "3005:3005"
     environment:
-      DATABASE_URL: ${DATABASE_URL:-./sqlite.db}
+      DATABASE_URL: ${DATABASE_URL:-/app/data/sqlite.db}
       AUTH_SECRET: ${AUTH_SECRET:-replace-with-long-random-secret}
-      MINIO_PUBLIC_ENDPOINT: ${MINIO_PUBLIC_ENDPOINT:-http://localhost:9200}
-      MINIO_ENDPOINT: ${MINIO_ENDPOINT:-localhost}
-      MINIO_PORT: ${MINIO_PORT:-9200}
+      MINIO_PUBLIC_ENDPOINT: ${MINIO_PUBLIC_ENDPOINT:-http://YOUR_SERVER_IP_OR_DOMAIN:9200}
+      MINIO_ENDPOINT: ${MINIO_ENDPOINT:-minio}
+      MINIO_PORT: ${MINIO_PORT:-9000}
       MINIO_USE_SSL: ${MINIO_USE_SSL:-false}
       MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY:-minioadmin}
       MINIO_SECRET_KEY: ${MINIO_SECRET_KEY:-minioadmin}
@@ -22,10 +22,15 @@ services:
       GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID:-}
       GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET:-}
       GOOGLE_REDIRECT_URI: ${GOOGLE_REDIRECT_URI:-http://localhost:3005/api/auth/google/callback}
-      NEXT_PUBLIC_APP_URL: ${NEXT_PUBLIC_APP_URL:-http://localhost:3005}
       NEXT_PUBLIC_GOOGLE_AUTH_ENABLED: ${NEXT_PUBLIC_GOOGLE_AUTH_ENABLED:-false}
+      NEXT_PUBLIC_APP_URL: ${NEXT_PUBLIC_APP_URL:-http://localhost:3005}
+    volumes:
+      - aiguru_data:/app/data
     networks:
       - ferileeNet
+
+volumes:
+  aiguru_data:
 
 networks:
   ferileeNet:
