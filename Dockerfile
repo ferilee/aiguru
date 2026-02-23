@@ -5,6 +5,10 @@ RUN npm ci
 
 FROM node:20-bookworm-slim AS builder
 WORKDIR /app
+ARG NEXT_PUBLIC_GOOGLE_AUTH_ENABLED=false
+ARG NEXT_PUBLIC_APP_URL=http://localhost:3005
+ENV NEXT_PUBLIC_GOOGLE_AUTH_ENABLED=${NEXT_PUBLIC_GOOGLE_AUTH_ENABLED}
+ENV NEXT_PUBLIC_APP_URL=${NEXT_PUBLIC_APP_URL}
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 RUN npm run build

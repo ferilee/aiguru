@@ -74,10 +74,15 @@ Pastikan env MinIO (`MINIO_ENDPOINT`, `MINIO_PORT`, `MINIO_ACCESS_KEY`, `MINIO_S
 
 1. Buat OAuth Client di Google Cloud Console (Web Application).
 2. Tambahkan Authorized redirect URI:
-   - `http://localhost:3000/api/auth/google/callback`
+   - `http://localhost:3005/api/auth/google/callback` (lokal)
+   - `https://aiguru.gemastika.or.id/api/auth/google/callback` (produksi)
 3. Isi env:
    - `GOOGLE_CLIENT_ID`
    - `GOOGLE_CLIENT_SECRET`
    - `GOOGLE_REDIRECT_URI`
-4. User klik tombol "Login dengan Google" / "Daftar dengan Google".
-5. Setelah callback sukses, app tetap memakai session cookie internal (`ai_guru_session`) yang sama seperti login biasa.
+   - `NEXT_PUBLIC_GOOGLE_AUTH_ENABLED=true`
+4. Untuk build image produksi, set build args agar tombol Google muncul di frontend:
+   - `NEXT_PUBLIC_GOOGLE_AUTH_ENABLED=true`
+   - `NEXT_PUBLIC_APP_URL=https://aiguru.gemastika.or.id`
+5. User klik tombol "Login dengan Google" / "Daftar dengan Google".
+6. Setelah callback sukses, app tetap memakai session cookie internal (`ai_guru_session`) yang sama seperti login biasa.

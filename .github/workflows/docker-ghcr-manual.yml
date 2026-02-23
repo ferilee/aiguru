@@ -2,6 +2,15 @@ name: Build and Push GHCR (Manual)
 
 on:
   workflow_dispatch:
+    inputs:
+      next_public_google_auth_enabled:
+        description: "Enable Google login button in frontend build (true/false)"
+        required: false
+        default: "false"
+      next_public_app_url:
+        description: "Public app URL for metadata/callback links"
+        required: false
+        default: "http://localhost:3005"
 
 permissions:
   contents: read
@@ -30,3 +39,6 @@ jobs:
           context: .
           push: true
           tags: ghcr.io/ferilee/aiguru:latest
+          build-args: |
+            NEXT_PUBLIC_GOOGLE_AUTH_ENABLED=${{ inputs.next_public_google_auth_enabled }}
+            NEXT_PUBLIC_APP_URL=${{ inputs.next_public_app_url }}
