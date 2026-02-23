@@ -3,6 +3,8 @@ import { asc, eq } from "drizzle-orm";
 import { db } from "@/lib/db";
 import { courses } from "@/lib/db/schema";
 
+export const dynamic = "force-dynamic";
+
 export default async function HomePage() {
   const publishedCourses = await db
     .select()
