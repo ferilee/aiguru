@@ -7,6 +7,7 @@ import {
   exchangeCodeForToken,
   fetchGoogleUserInfo,
   getGoogleOAuthConfig,
+  isGoogleOAuthEnabled,
   GOOGLE_STATE_COOKIE,
 } from "@/lib/google-auth";
 
@@ -20,6 +21,10 @@ function redirectWithError(
 }
 
 export async function GET(request: NextRequest): Promise<NextResponse> {
+  if (!isGoogleOAuthEnabled()) {
+    return redirectWithError(request, "Login Google belum diaktifkan.");
+  }
+
   const code = request.nextUrl.searchParams.get("code");
   const state = request.nextUrl.searchParams.get("state");
   const cookieState = request.cookies.get(GOOGLE_STATE_COOKIE)?.value;

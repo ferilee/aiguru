@@ -11,10 +11,16 @@ coverage
 .env.staging
 .env.development
 .env.test
+.env.*
+!.env.example
 sqlite.db
 sqlite.db-journal
 sqlite.db-shm
 sqlite.db-wal
+docker-compose.yml
+docker-compose.override.yml
+*.secrets
+*.secret
 
 # Secrets / credentials
 *.pem

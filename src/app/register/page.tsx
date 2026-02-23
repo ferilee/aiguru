@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 
 export default function RegisterPage() {
+  const isGoogleAuthEnabled =
+    process.env.NEXT_PUBLIC_GOOGLE_AUTH_ENABLED === "true";
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -70,9 +72,11 @@ export default function RegisterPage() {
           <button className="btn primary" disabled={loading} type="submit">
             {loading ? "Memproses..." : "Daftar"}
           </button>
-          <a href="/api/auth/google/start" className="btn">
-            Daftar dengan Google
-          </a>
+          {isGoogleAuthEnabled ? (
+            <a href="/api/auth/google/start" className="btn">
+              Daftar dengan Google
+            </a>
+          ) : null}
         </form>
         <p>
           Sudah punya akun? <Link href="/login">Login</Link>

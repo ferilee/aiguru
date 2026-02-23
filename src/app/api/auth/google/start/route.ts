@@ -3,12 +3,21 @@ import {
   buildGoogleAuthUrl,
   buildGoogleState,
   getGoogleOAuthConfig,
-  GOOGLE_STATE_COOKIE
+  isGoogleOAuthEnabled,
+  GOOGLE_STATE_COOKIE,
 } from "@/lib/google-auth";
 
 export async function GET(request: NextRequest): Promise<NextResponse> {
+  if (!isGoogleOAuthEnabled()) {
+    const url = new URL("/login", request.url);
+    url.searchParams.set("error", "Login Google belum diaktifkan.");
+    return NextResponse.redirect(url);
+  }
+
   try {
-    const { clientId, redirectUri } = getGoogleOAuthConfig(request.nextUrl.origin);
+    const { clientId, redirectUri } = getGoogleOAuthConfig(
+      request.nextUrl.origin,
+    );
     const state = buildGoogleState();
     const authUrl = buildGoogleAuthUrl({ clientId, redirectUri, state });
 
@@ -18,13 +27,15 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
       secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
       path: "/",
-      maxAge: 60 * 10
+      maxAge: 60 * 10,
     });
     return response;
   } catch (error) {
-    return NextResponse.json(
-      { error: error instanceof Error ? error.message : "Google auth unavailable" },
-      { status: 500 }
+    const url = new URL("/login", request.url);
+    url.searchParams.set(
+      "error",
+      error instanceof Error ? error.message : "Google auth unavailable",
     );
+    return NextResponse.redirect(url);
   }
 }
