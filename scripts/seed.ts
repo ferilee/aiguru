@@ -68,6 +68,7 @@ async function main(): Promise<void> {
   const adminEmail = process.env.ADMIN_EMAIL ?? "admin@aiguru.local";
   const adminPassword = process.env.ADMIN_PASSWORD ?? "admin12345";
   const adminName = process.env.ADMIN_NAME ?? "Admin AI Guru";
+  const passwordHash = await hashPassword(adminPassword);
 
   let [admin] = await db
     .select()
@@ -75,15 +76,28 @@ async function main(): Promise<void> {
     .where(eq(users.email, adminEmail))
     .limit(1);
   if (!admin) {
-    const passwordHash = await hashPassword(adminPassword);
     [admin] = await db
       .insert(users)
       .values({
         name: adminName,
         email: adminEmail,
         passwordHash,
+        authProvider: "local",
+        googleId: "",
         role: "admin",
       })
+      .returning();
+  } else {
+    [admin] = await db
+      .update(users)
+      .set({
+        name: adminName,
+        passwordHash,
+        authProvider: "local",
+        googleId: "",
+        role: "admin",
+      })
+      .where(eq(users.id, admin.id))
       .returning();
   }
 
