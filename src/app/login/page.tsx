@@ -5,7 +5,7 @@ import { FormEvent, useEffect, useState } from "react";
 
 export default function LoginPage() {
   const isGoogleAuthEnabled =
-    process.env.NEXT_PUBLIC_GOOGLE_AUTH_ENABLED === "true";
+    process.env.NEXT_PUBLIC_GOOGLE_AUTH_ENABLED !== "false";
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [oauthError, setOauthError] = useState("");
@@ -129,6 +129,7 @@ export default function LoginPage() {
                   d="M12 7.3c1.3 0 2.5.4 3.4 1.3l2.6-2.6C16.6 4.7 14.5 4 12 4 8.4 4 5.4 6 3.9 8.4l3.2 2.5c.7-2.1 2.6-3.6 4.9-3.6z"
                 />
               </svg>
+              <span>Login dengan Google</span>
             </a>
           ) : null}
           <p className="login-register">

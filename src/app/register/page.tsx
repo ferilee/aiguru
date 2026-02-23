@@ -6,7 +6,7 @@ import { FormEvent, useState } from "react";
 
 export default function RegisterPage() {
   const isGoogleAuthEnabled =
-    process.env.NEXT_PUBLIC_GOOGLE_AUTH_ENABLED === "true";
+    process.env.NEXT_PUBLIC_GOOGLE_AUTH_ENABLED !== "false";
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
