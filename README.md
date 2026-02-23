@@ -80,9 +80,20 @@ Pastikan env MinIO (`MINIO_ENDPOINT`, `MINIO_PORT`, `MINIO_ACCESS_KEY`, `MINIO_S
    - `GOOGLE_CLIENT_ID`
    - `GOOGLE_CLIENT_SECRET`
    - `GOOGLE_REDIRECT_URI`
-   - `NEXT_PUBLIC_GOOGLE_AUTH_ENABLED=true`
-4. Untuk build image produksi, set build args agar tombol Google muncul di frontend:
-   - `NEXT_PUBLIC_GOOGLE_AUTH_ENABLED=true`
+4. Untuk build image produksi, set build arg:
    - `NEXT_PUBLIC_APP_URL=https://aiguru.gemastika.or.id`
 5. User klik tombol "Login dengan Google" / "Daftar dengan Google".
 6. Setelah callback sukses, app tetap memakai session cookie internal (`ai_guru_session`) yang sama seperti login biasa.
+
+## Deploy Image Tag (Disarankan)
+
+Workflow GHCR akan push dua tag:
+- `latest`
+- `<commit_sha>`
+
+Di server, pin ke tag SHA agar tidak ketarik image lama:
+```bash
+export IMAGE_TAG=<commit_sha>
+docker compose -f docker-compose.aiguru.yml pull
+docker compose -f docker-compose.aiguru.yml up -d --force-recreate
+```

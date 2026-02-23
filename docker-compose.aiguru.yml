@@ -1,6 +1,6 @@
 services:
   aiguru:
-    image: ghcr.io/ferilee/aiguru:latest
+    image: ghcr.io/ferilee/aiguru:${IMAGE_TAG:-latest}
     container_name: aiguru
     restart: unless-stopped
     ports:

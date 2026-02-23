@@ -1,6 +1,6 @@
 services:
   aiguru:
-    image: ghcr.io/ferilee/aiguru:latest
+    image: ghcr.io/ferilee/aiguru:${IMAGE_TAG:-latest}
     container_name: aiguru
     restart: unless-stopped
     ports:
@@ -23,7 +23,6 @@ services:
       GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET:-}
       GOOGLE_REDIRECT_URI: ${GOOGLE_REDIRECT_URI:-http://localhost:3005/api/auth/google/callback}
       NEXT_PUBLIC_APP_URL: ${NEXT_PUBLIC_APP_URL:-http://localhost:3005}
-      NEXT_PUBLIC_GOOGLE_AUTH_ENABLED: ${NEXT_PUBLIC_GOOGLE_AUTH_ENABLED:-false}
     networks:
       - ferileeNet
 
