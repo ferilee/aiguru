@@ -1,0 +1,15 @@
+Buka **Google Cloud Console**: `https://console.cloud.google.com/`
+2. Pilih project yang dipakai untuk OAuth AIGURU.
+3. Masuk ke **APIs & Services** → **Credentials**.
+4. Klik OAuth 2.0 Client ID yang kamu pakai (web client).
+5. Di bagian:
+   - **Authorized JavaScript origins** pastikan ada:
+     - `http://localhost:3005`
+   - **Authorized redirect URIs** pastikan ada:
+     - `http://localhost:3005/api/auth/google/callback`
+6. Klik **Save**.
+7. Restart server lokal (`npm run dev`) lalu test login Google lagi.
+
+Tambahan cek di project:
+- `.env.local` harus sama:
+  - `GOOGLE_REDIRECT_URI=http://localhost:3005/api/auth/google/callback

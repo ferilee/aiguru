@@ -1,0 +1,15 @@
+services:
+  aiguru:
+    image: ghcr.io/ferilee/aiguru:latest
+    container_name: aiguru
+    restart: unless-stopped
+    ports:
+      - "3005:3005"
+    env_file:
+      - .env.local
+    networks:
+      - ferileeNet
+
+networks:
+  ferileeNet:
+    external: true

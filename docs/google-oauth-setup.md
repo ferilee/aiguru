@@ -30,9 +30,9 @@ Catatan:
 4. Isi nama client (contoh: `AI Guru Web`).
 5. Isi:
    - `Authorized JavaScript origins`:
-     - `http://localhost:3000`
+     - `http://localhost:3005`
    - `Authorized redirect URIs`:
-     - `http://localhost:3000/api/auth/google/callback`
+     - `http://localhost:3005/api/auth/google/callback`
 6. Klik `Create`.
 
 Setelah dibuat, Anda akan mendapat:
@@ -46,7 +46,7 @@ Tambahkan baris berikut di file `.env.local`:
 ```env
 GOOGLE_CLIENT_ID=isi_dengan_client_id_dari_google
 GOOGLE_CLIENT_SECRET=isi_dengan_client_secret_dari_google
-GOOGLE_REDIRECT_URI=http://localhost:3000/api/auth/google/callback
+GOOGLE_REDIRECT_URI=http://localhost:3005/api/auth/google/callback
 ```
 
 ## 5. Restart Aplikasi
@@ -76,4 +76,3 @@ npm run dev
 
 ### Error saat consent (app belum diverifikasi / test user)
 - Jika mode `External` masih testing, akun login harus ditambahkan ke `Test users`.
-

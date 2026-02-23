@@ -9,7 +9,7 @@ const logoFont = Bebas_Neue({
   variable: "--font-logo",
 });
 
-const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
+const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3005";
 
 export const metadata: Metadata = {
   metadataBase: new URL(appUrl),
