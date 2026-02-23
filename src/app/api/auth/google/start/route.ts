@@ -20,6 +20,15 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
     );
     const state = buildGoogleState();
     const authUrl = buildGoogleAuthUrl({ clientId, redirectUri, state });
+    const isDebugMode = request.nextUrl.searchParams.get("debug") === "1";
+
+    if (isDebugMode) {
+      return NextResponse.json({
+        enabled: true,
+        redirectUri,
+        authUrl,
+      });
+    }
 
     const response = NextResponse.redirect(authUrl);
     response.cookies.set(GOOGLE_STATE_COOKIE, state, {

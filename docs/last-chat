@@ -1,0 +1,23 @@
+Output debug-nya jelas: aplikasi sudah mengirim `redirect_uri=http://localhost:3005/api/auth/google/callback` dengan benar.
+
+Berarti error sekarang 100% di konfigurasi Google OAuth client (`client_id` itu), bukan di kode app.
+
+Yang harus dicek di Google Cloud Console untuk **client ID ini**:
+`459116949271-esuvc7tlp9qff576itn3phv4r3srcce2.apps.googleusercontent.com`
+
+1. Tipe client harus `Web application` (bukan Desktop/Android/iOS).
+2. `Authorized redirect URIs` harus berisi **persis**:
+   `http://localhost:3005/api/auth/google/callback`
+3. `Authorized JavaScript origins` tambah:
+   `http://localhost:3005`
+4. Klik `Save`, tunggu 1-5 menit, lalu coba lagi.
+
+Jika masih gagal, biasanya Anda mengedit OAuth client yang berbeda. Solusi cepat:
+1. Buat OAuth client baru (`Web application`).
+2. Isi URI yang sama di atas.
+3. Ganti `.env.local`:
+   - `GOOGLE_CLIENT_ID=...baru...`
+   - `GOOGLE_CLIENT_SECRET=...baru...`
+4. Restart `npm run dev`.
+
+Kalau mau, kirim screenshot halaman Credentials (bagian URI list) dan saya cek baris yang salah.

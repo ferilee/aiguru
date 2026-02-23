@@ -1,0 +1,39 @@
+services:
+  aiguru:
+    image: node:20-bookworm-slim
+    container_name: aiguru-nobuild
+    working_dir: /app
+    restart: unless-stopped
+    ports:
+      - "3005:3005"
+    environment:
+      DATABASE_URL: ${DATABASE_URL:-./sqlite.db}
+      AUTH_SECRET: ${AUTH_SECRET:-replace-with-long-random-secret}
+      MINIO_PUBLIC_ENDPOINT: ${MINIO_PUBLIC_ENDPOINT:-http://localhost:9200}
+      MINIO_ENDPOINT: ${MINIO_ENDPOINT:-localhost}
+      MINIO_PORT: ${MINIO_PORT:-9200}
+      MINIO_USE_SSL: ${MINIO_USE_SSL:-false}
+      MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY:-minioadmin}
+      MINIO_SECRET_KEY: ${MINIO_SECRET_KEY:-minioadmin}
+      CERTIFICATE_BASE_URL: ${CERTIFICATE_BASE_URL:-http://localhost:3005/certificates}
+      BOOTSTRAP_KEY: ${BOOTSTRAP_KEY:-change-me}
+      ADMIN_EMAIL: ${ADMIN_EMAIL:-admin@aiguru.local}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-admin12345}
+      ADMIN_NAME: ${ADMIN_NAME:-Admin AI Guru}
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID:-}
+      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET:-}
+      GOOGLE_REDIRECT_URI: ${GOOGLE_REDIRECT_URI:-http://localhost:3005/api/auth/google/callback}
+      NEXT_PUBLIC_APP_URL: ${NEXT_PUBLIC_APP_URL:-http://localhost:3005}
+    volumes:
+      - ./:/app
+      - aiguru_node_modules:/app/node_modules
+    command: sh -c "npm ci && npm run db:push && npm run dev"
+    networks:
+      - ferileeNet
+
+volumes:
+  aiguru_node_modules:
+
+networks:
+  ferileeNet:
+    external: true

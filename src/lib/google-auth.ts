@@ -32,6 +32,43 @@ function requireEnv(name: string): string {
   return value;
 }
 
+function normalizeOrigin(url: string): string {
+  return url.replace(/\/+$/, "");
+}
+
+function isLocalHost(hostname: string): boolean {
+  return (
+    hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1"
+  );
+}
+
+function resolveRedirectUri(origin?: string): string {
+  const envRedirect = process.env.GOOGLE_REDIRECT_URI?.trim();
+  const normalizedOrigin = origin ? normalizeOrigin(origin) : "";
+
+  if (envRedirect) {
+    try {
+      const envUrl = new URL(envRedirect);
+      if (normalizedOrigin) {
+        const originUrl = new URL(normalizedOrigin);
+        if (isLocalHost(envUrl.hostname) && !isLocalHost(originUrl.hostname)) {
+          return `${normalizedOrigin}/api/auth/google/callback`;
+        }
+      }
+    } catch {
+      // Fallback to raw env value for backward compatibility.
+    }
+    return envRedirect;
+  }
+
+  const appUrl = process.env.NEXT_PUBLIC_APP_URL?.trim();
+  const baseUrl =
+    (appUrl && normalizeOrigin(appUrl)) ||
+    normalizedOrigin ||
+    "http://localhost:3005";
+  return `${baseUrl}/api/auth/google/callback`;
+}
+
 export function getGoogleOAuthConfig(origin?: string): {
   clientId: string;
   clientSecret: string;
@@ -39,9 +76,7 @@ export function getGoogleOAuthConfig(origin?: string): {
 } {
   const clientId = requireEnv("GOOGLE_CLIENT_ID");
   const clientSecret = requireEnv("GOOGLE_CLIENT_SECRET");
-  const redirectUri =
-    process.env.GOOGLE_REDIRECT_URI ??
-    `${origin ?? "http://localhost:3000"}/api/auth/google/callback`;
+  const redirectUri = resolveRedirectUri(origin);
   return { clientId, clientSecret, redirectUri };
 }
 
