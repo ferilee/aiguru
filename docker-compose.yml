@@ -6,7 +6,7 @@ services:
     ports:
       - "3005:3005"
     environment:
-      DATABASE_URL: ${DATABASE_URL:-./sqlite.db}
+      DATABASE_URL: ${DATABASE_URL:-/app/data/sqlite.db}
       AUTH_SECRET: ${AUTH_SECRET:-replace-with-long-random-secret}
       MINIO_PUBLIC_ENDPOINT: ${MINIO_PUBLIC_ENDPOINT:-http://localhost:9200}
       MINIO_ENDPOINT: ${MINIO_ENDPOINT:-localhost}
@@ -22,8 +22,13 @@ services:
       GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID:-}
       GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET:-}
       GOOGLE_REDIRECT_URI: ${GOOGLE_REDIRECT_URI:-http://localhost:3005/api/auth/google/callback}
+    volumes:
+      - aiguru_data:/app/data
     networks:
       - ferileeNet
+
+volumes:
+  aiguru_data:
 
 networks:
   ferileeNet:
